@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:h2:./contacts;DB_CLOSE_ON_EXIT=FALSE
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
+
+
