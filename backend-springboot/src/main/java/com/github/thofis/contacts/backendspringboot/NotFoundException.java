@@ -1,4 +1,4 @@
-package com.example.backendspringboot;
+package com.github.thofis.contacts.backendspringboot;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

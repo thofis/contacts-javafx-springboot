@@ -1,8 +1,9 @@
-package com.example.backendspringboot;
+package com.github.thofis.contacts.backendspringboot;
+
+import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +15,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @RequestMapping("/api/contacts")
 @RequiredArgsConstructor
 public class ContactController {
 	private final ContactRepository contactRepository;
 
-	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(produces = APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Contact>> getAll() {
+		return ResponseEntity.ok(
+				contactRepository.findAll()
+		);
+	}
+
+	@GetMapping(path = "/{id}", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<Contact> get(@PathVariable("id") long id) {
 		return ResponseEntity.ok(
 				contactRepository
@@ -29,7 +39,7 @@ public class ContactController {
 		);
 	}
 
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(consumes = APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> post(@RequestBody Contact contact) {
 		final var persistedContact = contactRepository.save(contact);
 		return ResponseEntity.created(ServletUriComponentsBuilder
@@ -40,7 +50,7 @@ public class ContactController {
 				.build();
 	}
 
-	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/{id}", consumes = APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> put(@PathVariable("id") long id, @RequestBody Contact contact) {
 		final var persistedContact = contactRepository.findById(id).orElseThrow(() -> new NotFoundException("contact with id " + id + " not found"));
 		persistedContact.setFirstName(contact.getFirstName());

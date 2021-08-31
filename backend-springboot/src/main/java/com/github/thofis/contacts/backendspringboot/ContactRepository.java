@@ -1,4 +1,4 @@
-package com.example.backendspringboot;
+package com.github.thofis.contacts.backendspringboot;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
