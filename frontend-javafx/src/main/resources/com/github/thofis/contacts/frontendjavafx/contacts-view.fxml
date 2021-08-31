@@ -11,7 +11,8 @@
 			prefWidth="600.0" xmlns="http://javafx.com/javafx/16"
 			fx:controller="com.github.thofis.contacts.frontendjavafx.ContactsController">
 	<right>
-		<ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
+		<ListView fx:id="contactListView" prefHeight="200.0" prefWidth="200.0"
+				  BorderPane.alignment="CENTER"/>
 	</right>
 	<top>
 		<Label prefHeight="25.0" prefWidth="109.0" text="Contacts"

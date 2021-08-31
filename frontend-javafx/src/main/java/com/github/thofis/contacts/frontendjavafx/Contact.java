@@ -20,4 +20,9 @@ public class Contact {
 	private String email;
 
 	private String phone;
+
+	@Override
+	public String toString() {
+		return "%s %s".formatted(firstName, lastName);
+	}
 }
