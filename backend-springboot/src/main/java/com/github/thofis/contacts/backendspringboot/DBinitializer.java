@@ -10,29 +10,30 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 class DBinitializer implements ApplicationRunner {
 	private final ContactRepository contactRepository;
+
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		final var count = contactRepository.count();
 		if (count == 0) {
-			contactRepository.save(
-					Contact
-							.builder()
-							.firstName("John")
-							.lastName("Miller")
-							.email("john@miller.com")
-							.phone("123")
-							.build()
-			);
-			contactRepository.save(
-					Contact
-							.builder()
-							.firstName("Jane")
-							.lastName("Smith")
-							.email("jane.smith@mail.com")
-							.phone("234")
-							.build()
-			);
+			persistContact("John", "Miller", "john@miller.com", "123");
+			persistContact("Jane", "Smith", "jane.smith@mail.com", "234");
+			persistContact("Steven", "Brown", "steven.brown@mail.com", "345");
+			persistContact("Liza", "Jones", "liza.jones@mail.com", "456");
+			persistContact("Alexander", "Garcia", "alex.garcia@mail.com", "567");
+			persistContact("Katie", "Davis", "katie.davis@mail.com", "678");
 			contactRepository.flush();
 		}
+	}
+
+	private void persistContact(String firstName, String lastName, String email, String phone) {
+		contactRepository.save(
+				Contact
+						.builder()
+						.firstName(firstName)
+						.lastName(lastName)
+						.email(email)
+						.phone(phone)
+						.build()
+		);
 	}
 }
