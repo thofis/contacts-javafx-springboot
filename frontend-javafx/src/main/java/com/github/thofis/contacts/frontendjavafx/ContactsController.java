@@ -15,46 +15,46 @@ public class ContactsController {
 	private final ContactRestClient contactRestClient = new ContactRestClient();
 
 	@FXML
-	public ListView<Contact> contactListView;
+	private ListView<Contact> contactListView;
 
 	@FXML
-	public Button exitButton;
+	private Button exitButton;
 
 	@FXML
-	public Button editButton;
+	private Button editButton;
 
 	@FXML
-	public Button deleteButton;
+	private Button deleteButton;
 
 	@FXML
-	public Button newButton;
-
-
-	@FXML
-	public TextField lastName;
-
-	@FXML
-	public TextField firstName;
-
-	@FXML
-	public TextField email;
-
-	@FXML
-	public TextField phone;
+	private Button addButton;
 
 
 	@FXML
+	private TextField lastName;
+
+	@FXML
+	private TextField firstName;
+
+	@FXML
+	private TextField email;
+
+	@FXML
+	private TextField phone;
+
+
 	public void initialize() {
 		log.debug("initialize");
 		exitButton.setOnAction(event -> exit());
 		deleteButton.setOnAction(event -> delete());
-		newButton.setOnAction(event -> insert());
+		addButton.setOnAction(event -> insert());
 		editButton.setOnAction(event -> edit());
 		loadContactList(contactListView);
 		contactListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 			log.debug("selectedContact: {}", newSelection);
 			populateTextFields(newSelection);
 		});
+		editTextFields(false);
 	}
 
 	private void edit() {
@@ -95,6 +95,13 @@ public class ContactsController {
 		lastName.setText(contact.getLastName());
 		email.setText(contact.getEmail());
 		phone.setText(contact.getPhone());
+	}
+
+	private void editTextFields(boolean enabled) {
+		firstName.setEditable(enabled);
+		lastName.setEditable(enabled);
+		email.setEditable(enabled);
+		phone.setEditable(enabled);
 	}
 
 	public void exit() {
